@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "server"
+version = "0.1.0"
+description = "Basic Server setup for django project"
+authors = ["stha2022sushant@gmail.com"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Django Core
+django = "^5.1"
+psycopg2-binary = "^2.9.9"
+
+# Environment
+python-dotenv = "^1.0.1"
+
+# Celery / Redis
+celery = "^5.4.0"
+redis = "^5.0.1"
+
+# Production Server
+gunicorn = "^22.0.0"
+
+# Useful Dev Tools
+django-cors-headers = "^4.3.0"
+djangorestframework = "^3.15.0"
+
+# Optional
+Pillow = "^11.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+pytest-django = "^4.8.0"
+coverage = "^7.6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

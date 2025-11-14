@@ -1,0 +1,33 @@
+# customize as per requirement
+services:
+  web:
+    build: .
+    container_name: django_app
+    command: bash scripts/run_prod.sh
+    env_file: .env
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:80"
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    restart: always
+
+volumes:
+  postgres_data:
