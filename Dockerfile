@@ -1,6 +1,6 @@
 FROM python:3.11-slim-bookworm
 
-LABEL maintainer="dev@alpas.com.np"
+LABEL maintainer="stha2022sushant@gmail.com"
 
 ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -18,6 +18,7 @@ RUN apt-get update -y \
         gdal-bin \
         gcc \
         libpq-dev \
+        postgresql-client \
     && pip install --upgrade pip poetry \
     && poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi --no-root \
@@ -26,4 +27,4 @@ RUN apt-get update -y \
 
 COPY . /code/
 
-CMD ["bash", "run_prod.sh"]
+CMD ["bash", "scripts/run_develop.sh"]
