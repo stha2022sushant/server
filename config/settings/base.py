@@ -7,8 +7,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+AUTH_USER_MODEL = "account.User"
 
+# LOCAL_APPS = [
+#     "apps.account"
+# ]
 INSTALLED_APPS = [
+    "apps.account",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -16,8 +21,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Local apps
-    # "apps.core",
 ]
 
 MIDDLEWARE = [
