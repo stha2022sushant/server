@@ -27,4 +27,12 @@ RUN apt-get update -y \
 
 COPY . /code/
 
+RUN addgroup --system django && adduser --system --ingroup django django
+
+# Make sure the user owns the app folder
+RUN chown -R django:django /code
+
+# Switch to the non-root user
+USER django
+
 CMD ["bash", "scripts/run_develop.sh"]
