@@ -1,10 +1,29 @@
 import os
 from pathlib import Path
+import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
-DEBUG = False
+env = environ.Env(
+    DEBUG=(bool),
+    SECRET_KEY=(str),
+    ENVIRONMENT=(str),
+
+    # Database
+    APPLICATION_DB_NAME=(str),
+    APPLICATION_DB_USER=(str),
+    APPLICATION_DB_PASSWORD=(str),
+    APPLICATION_DB_PORT=(int),
+    APPLICATION_DB_HOST=(str),
+
+
+    # Redis Settings
+    CELERY_BROKER_URL=(str),
+
+)
+
+DEBUG = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = "account.User"
@@ -57,16 +76,16 @@ ASGI_APPLICATION = "config.asgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST", "db"),
-        "PORT": os.environ.get("DB_PORT", 5432),
+        "NAME": env("APPLICATION_DB_NAME"),
+        "USER": env("APPLICATION_DB_USER"),
+        "PASSWORD": env("APPLICATION_DB_PASSWORD"),
+        "HOST": env("APPLICATION_DB_HOST"),
+        "PORT": env("APPLICATION_DB_PORT"),
     }
 }
 
 # Cache / Redis
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://redis:6379/0")
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis:6379/0")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"

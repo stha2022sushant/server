@@ -1,6 +1,0 @@
-from .base import *
-
-DEBUG = True
-SECRET_KEY = "local-dev-key"
-
-ALLOWED_HOSTS = ["*"]

@@ -5,3 +5,4 @@ __pycache__/
 *.pyo
 *.pyd
 CACHEDIR.TAG/
+staticfiles/

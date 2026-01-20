@@ -15,7 +15,6 @@ services:
   web:
     build: .
     container_name: django_app
-    user: "django"
     # command: bash scripts/run_develop.sh
     command: ["./scripts/wait-for-db.sh", "db", "bash scripts/run_develop.sh"]
     env_file: .env
@@ -25,7 +24,7 @@ services:
       - db
       - redis
     ports:
-      - "8000:8000"
+      - "8080:8000"
 
 
   redis:
@@ -37,7 +36,6 @@ services:
   celery:
     build: .
     container_name: celery_worker
-    user: "django"
     command: celery -A config worker --loglevel=info
     env_file: .env
     volumes:
